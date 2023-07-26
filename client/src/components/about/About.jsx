@@ -2,43 +2,19 @@ import { Box, styled, Typography } from '@mui/material';
 import monkeyImage from '../images/monkey.png';
 
 const Banner = styled(Box)`
-    width: 100%;
-    background-color: #FFD886;
-    background-image: url(${monkeyImage});
-    background-repeat: no-repeat;
-    height: 70vh;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 20px;
+  width: 100%;
+  background-color: #FFD886;
+  background-image: url(${monkeyImage});
+  background-repeat: no-repeat;
+  height: 70vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
 `;
 
-const BannerContent = styled(Box)`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 20px;
-    margin-bottom: 20px;
-`;
-
-const Heading = styled(Typography)`
-    font-size: 45px;
-    font-weight: bold;
-    color: blavk;
-    margin-left: 40%;
-    text-align: centre;
-    justify-content: centre;
-`;
-
-const SubHeading = styled(Typography)`
-  font-size: 20px;
-  color: black;
-  margin-top: 10px;
-  margin-left: 40%;
-  animation: fadeIn 2s ease-in-out;
-  opacity: 1;
-
+const fadeInKeyframes = `
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -47,6 +23,39 @@ const SubHeading = styled(Typography)`
       opacity: 1;
     }
   }
+`;
+
+const BannerContent = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 55%; 
+  margin-left: 35%; 
+  margin-bottom: 20px;
+  text-align: center;
+`;
+
+const Heading = styled(Typography)`
+  font-size: 45px;
+  font-weight: bold;
+  color: black;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards; /* Apply the fade-in animation */
+  animation-delay: 0.5s;
+  ${fadeInKeyframes}
+`;
+
+const SubHeading = styled(Typography)`
+  font-size: 20px;
+  color: black;
+  margin-top: 10px;
+  font-family: 'Roboto', sans-serif;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards; /* Apply the fade-in animation */
+  animation-delay: 1s;
+  ${fadeInKeyframes}
 `;
 
 
@@ -59,9 +68,20 @@ const Text = styled(Typography)`
 `;
 
 const Section = styled(Box)`
-    background-color: #F2F2F2; /* Add the desired background color for each section */
-    padding: 20px;
-    margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
+  border: 4px solid #FFD886;
+  background-color: #F2F2F2; 
+  padding: 40px;
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s ease-in-out; 
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px); 
+  }
 `;
 
 const About = () => {
@@ -70,29 +90,28 @@ const About = () => {
     <Box>
       <Banner>
         <BannerContent>
-          <Heading sx={{ fontFamily: 'Merriweather' }}>ABOUT US</Heading>
-         
-          <SubHeading sx={{ fontFamily: 'Merriweather' }}>
+          <Heading>ABOUT US</Heading>
+          <SubHeading>
             We're a proud non-profit organisation building open source technology for blogging.
-            Today Ghost powers many users; from individual bloggers who are just getting started,<br/>
+            Today Ghost powers many users, from individual bloggers who are just getting started,<br />
             to large teams of writers and editors at some of the largest organisations in the world.
           </SubHeading>
         </BannerContent>
       </Banner>
             <Wrapper>
                 <Section>
-                    <Typography variant="h3" sx={{ fontFamily: 'Merriweather' }}>¡ Adios Amigos !</Typography>
-                    <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>At Thynk Unlimited, we believe that everyone has a unique voice and a story worth sharing. 
+                    <Typography variant="h3" sx={{ marginBottom: '10px', color: '#994d00'}}>¡ Adios Amigos !</Typography>
+                    <Text variant="h5" color="#000000" >At Thynk Unlimited, we believe that everyone has a unique voice and a story worth sharing. 
                     Whether you're a seasoned writer, a passionate hobbyist, or someone looking to start their writing journey, this is the perfect platform for you. 
                     We provide a user-friendly and intuitive interface that empowers you to create and publish captivating blogs effortlessly.<br />
                     </Text>
 
-                    <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>Express Yourself, Share Your Stories, and Connect with the World!</Text>
+                    <Text variant="h5" color="#000000" >Express Yourself, Share Your Stories, and Connect with the World!</Text>
                 </Section>
 
                 <Section>
-                    <Typography variant="h3" sx={{ fontFamily: 'Merriweather' }}>Why Choose Us ?</Typography>
-                    <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>
+                    <Typography variant="h3" sx={{ marginBottom: '10px', color: '#994d00'}}>Why Choose Us ?</Typography>
+                    <Text variant="h5" color="#000000" >
                         ~ Simple and Intuitive Interface: We've designed our platform with user-friendliness in mind. Creating and publishing blogs is a breeze, even for those new to blogging.
                         <br />
                         ~ Freedom of Expression: YourBlogSpace is a space where you can be yourself. Write about your interests, experiences, and opinions without any restrictions.
@@ -106,8 +125,8 @@ const About = () => {
                 </Section>
 
                 <Section>
-                    <Typography variant="h3" sx={{ fontFamily: 'Merriweather' }}>How It Works:</Typography>
-                    <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>
+                    <Typography variant="h3" sx={{ marginBottom: '10px', color: '#994d00'}}>How It Works:</Typography>
+                    <Text variant="h5" color="#000000" >
                         ~ Sign Up: Creating an account on YourBlogSpace is quick and easy. Simply sign up using your email or social media accounts.
                         <br />
                         ~ Create Your Blog: Once you're signed in, you can start crafting your blog using our intuitive editor. Format your text, add images, and make your blog visually appealing.
@@ -121,7 +140,7 @@ const About = () => {
                 </Section>
 
                 <Section>
-                    <Typography variant="h3" sx={{ fontFamily: 'Merriweather' }}>Join Us Today:</Typography>
+                    <Typography variant="h3" sx={{ marginBottom: '10px', color: '#994d00'}}>Join Us Today:</Typography>
                     <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>
                         Are you ready to embark on a journey of self-expression, creativity, and connection? 
                         Sign up with us and start sharing your unique perspective with the world. 
@@ -129,13 +148,13 @@ const About = () => {
                         we welcome you to be a part of our growing community of passionate storytellers.
                         <br />
                     </Text>
-                    <Text variant="h5" color="#000000" sx={{ fontFamily: 'Merriweather' }}>
+                    <Text variant="h5" color="#000000" >
                         Start your blogging adventure at YourBlogSpace and let your voice be heard! Happy blogging!
                     </Text>
                 </Section>
 
                 <Section>
-                    <Typography variant="h3" sx={{ fontFamily: 'Merriweather' }}>¡ Hasta luego, amigos !</Typography>
+                    <Typography variant="h3" sx={{ marginBottom: '10px', color: '#994d00'}}>¡ Hasta luego, amigos !</Typography>
                 </Section>
             </Wrapper>
         </Box>
