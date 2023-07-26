@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { API } from '../../service/api';
 import { DataContext } from '../../context/DataProvider';
+import img1 from './logonew.jpg'
 
 const Component = styled(Box)`
     width: 400px;
@@ -13,10 +14,10 @@ const Component = styled(Box)`
 `;
 
 const Image = styled('img')({
-    width: 100,
+    width: 150,
     display: 'flex',
     margin: 'auto',
-    padding: '50px 0 0'
+    padding: '10px 10px 10px'
 });
 
 const Wrapper = styled(Box)`
@@ -32,8 +33,8 @@ const Wrapper = styled(Box)`
 
 const LoginButton = styled(Button)`
     text-transform: none;
-    background: #FB641B;
-    color: #fff;
+    background: #FFBD59;
+    color: #ff;
     height: 48px;
     border-radius: 2px;
 `;
@@ -86,6 +87,17 @@ const Login = ({ isUserAuthenticated }) => {
         showError(false);
     }, [login])
 
+    const defaultLoginValues = {
+        username: '',
+        password: ''
+    };
+
+    const defaultSignupValues = {
+        name: '',
+        username: '',
+        password: '',
+    };
+
     const onValueChange = (e) => {
         setLogin({ ...login, [e.target.name]: e.target.value });
     }
@@ -95,33 +107,46 @@ const Login = ({ isUserAuthenticated }) => {
     }
 
     const loginUser = async () => {
-        let response = await API.userLogin(login);
-        if (response.isSuccess) {
-            showError('');
+        try{
+            let response = await API.userLogin(login);
+            if (response.isSuccess) {
+                showError('');
 
-            sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
-            sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
-            setAccount({ name: response.data.name, username: response.data.username });
-            
-            isUserAuthenticated(true)
-            setLogin(loginInitialValues);
-            navigate('/');
-        } else {
+                sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
+                sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+                setAccount({ name: response.data.name, username: response.data.username });
+                
+                isUserAuthenticated(true)
+                setLogin(loginInitialValues);
+                navigate('/');
+            } else {
+                showError('Something went wrong! please try again later');
+            }
+        }catch (error) {
             showError('Something went wrong! please try again later');
         }
     }
 
     const signupUser = async () => {
-        let response = await API.userSignup(signup);
-        if (response.isSuccess) {
-            showError('');
-            setSignup(signupInitialValues);
-            toggleAccount('login');
-        } else {
-            showError('Something went wrong! please try again later');
+        try {
+            let response = await API.userSignup(signup);
+            if (response.isSuccess) {
+                showError('');
+                setSignup(signupInitialValues);
+                toggleAccount('login');
+            } else {
+                if (response.error && Array.isArray(response.error.msg)) { 
+                    showError(response.error.msg.join(' '));
+                } else {
+                    showError('Something went wrong! please try again later');
+                }
+            }
+        } catch (error) {
+            showError('Please Enter the valid credentials!');
         }
-    }
-
+    }    
+    
+    
     const toggleSignup = () => {
         account === 'signup' ? toggleAccount('login') : toggleAccount('signup');
     }
@@ -129,12 +154,12 @@ const Login = ({ isUserAuthenticated }) => {
     return (
         <Component>
             <Box>
-                <Image src={imageURL} alt="blog" />
+                <Image src={img1} alt="blog" />
                 {
                     account === 'login' ?
                         <Wrapper>
-                            <TextField variant="standard" value={login.username} onChange={(e) => onValueChange(e)} name='username' label='Enter Username' />
-                            <TextField variant="standard" value={login.password} onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
+                            <TextField variant="standard" value={login.username || ''} onChange={(e) => onValueChange(e)} name='username' label='Enter Username' />
+                            <TextField variant="standard" value={login.password || ''} onChange={(e) => onValueChange(e)} name='password' label='Enter Password' />
 
                             {error && <Error>{error}</Error>}
 
@@ -143,9 +168,11 @@ const Login = ({ isUserAuthenticated }) => {
                             <SignupButton onClick={() => toggleSignup()} style={{ marginBottom: 50 }}>Create an account</SignupButton>
                         </Wrapper> :
                         <Wrapper>
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='name' label='Enter Name' />
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
-                            <TextField variant="standard" onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+                            <TextField variant="standard" value={signup.name || ''} onChange={(e) => onInputChange(e)} name='name' label='Enter Name' />
+                            <TextField variant="standard" value={signup.username || ''} onChange={(e) => onInputChange(e)} name='username' label='Enter Username' />
+                            <TextField variant="standard" value={signup.password || ''} onChange={(e) => onInputChange(e)} name='password' label='Enter Password' />
+
+                            {error && <Error>{error}</Error>}
 
                             <SignupButton onClick={() => signupUser()} >Signup</SignupButton>
                             <Text style={{ textAlign: 'center' }}>OR</Text>

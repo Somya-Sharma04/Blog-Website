@@ -9,20 +9,47 @@ dotenv.config();
 
 export const singupUser = async (request, response) => {
     try {
-        // const salt = await bcrypt.genSalt();
-        // const hashedPassword = await bcrypt.hash(request.body.password, salt);
-        const hashedPassword = await bcrypt.hash(request.body.password, 10);
+        const { username, name, password } = request.body;
 
-        const user = { username: request.body.username, name: request.body.name, password: hashedPassword }
+        // should be in email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(username)) {
+            return response.status(400).json({ msg: 'Invalid email format for username' });
+        }
+
+        // at least 5 characters
+        if (name.length < 5) {
+            return response.status(400).json({ msg: 'Name should be at least 5 characters long' });
+        }
+
+        // at least 1 uppercase, 1 numeric, and 1 symbolic character
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{8,}$/;
+        if (!passwordRegex.test(password)) {
+            return response.status(400).json({ msg: 'Password should have at least 1 uppercase character, 1 numeric character, and 1 symbolic character and be at least 8 characters long' });
+        }
+
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = { username, name, password: hashedPassword };
 
         const newUser = new User(user);
         await newUser.save();
 
-        return response.status(200).json({ msg: 'Signup successfull' });
+        return response.status(200).json({ msg: 'Signup successful' });
     } catch (error) {
-        return response.status(500).json({ msg: 'Error while signing up user' });
+        // Check if the error is a validation error
+        if (error.name === 'ValidationError') {
+            // Send validation error messages to the frontend
+            const validationErrors = Object.values(error.errors).map(err => err.message);
+            return response.status(400).json({ msg: validationErrors });
+        } else {
+            // For other server errors, return a generic message
+            return response.status(500).json({ msg: 'Error while signing up user' });
+        }
     }
-}
+};
+
 
 
 export const loginUser = async (request, response) => {
