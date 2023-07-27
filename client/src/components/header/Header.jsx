@@ -8,52 +8,60 @@ import img2 from '../images/blogsite_logo.png';
 const Component = styled(AppBar)`
   background: #FFFFFF;
   color: black;
-  height: 60px; /* Adjust the height of the header */
+  height: 60px;
 `;
 
 const Container = styled(Toolbar)`
   display: flex;
-  justify-content: flex-start; /* Align items to the left */
   align-items: center;
-  gap: 20px; /* Add some spacing between logo, links, and search bar */
+  gap: 20px;
+  margin-left: 25px;
 
   & > .logo {
-    width: 40px; /* Set the width of your logo */
-    height: auto; /* Adjust the height to maintain aspect ratio */
-    margin-right: 10px; /* Add some spacing between logo and links */
+    width: 60px; 
+    height: auto;
+    margin-right: 10px;
   }
 
   & > a {
     padding: 20px;
     color: #000;
     text-decoration: none;
+    font-weight: bold; 
+    font-family: 'Ubuntu', sans-serif;
+  }
+
+  & > .logout {
+    margin-left: auto; 
+    font-size: 24px;
   }
 
   & > .search {
     position: relative;
-    border-radius: 20px; /* Make the edges round */
-    background-color: alpha(#000, 0.15);
-    border: 1px solid #000; /* Add a border around the search bar */
+    border-radius: 20px;
+    background-color: #bfbfbf;
+    border: 1px solid #ddd;
     &:hover {
-      background-color: alpha(#000, 0.25);
+      background-color: #e1e1e1; 
     }
-    margin-left: auto; /* Push the search bar to the right */
-    width: 250px; /* Set the width of the search bar */
+    flex: 0.5;
     display: flex;
     align-items: center;
+    padding: 8px; 
+    margin: 0 10px; 
   }
 
   & > .searchIcon {
-    padding: 4px; /* Adjust the padding to reduce the icon size */
-    margin-right: 8px; /* Add space between search icon and border */
+    padding: 4px;
+    margin-right: 5px;
     pointer-events: none;
     display: flex;
     align-items: center;
-    font-size: 20px; /* Decrease the size of the search icon */
+    font-size: 24px; 
   }
 
   & > .inputRoot {
-    color: 'inherit';
+    flex: 1; 
   }
 
   & > .inputInput {
@@ -75,7 +83,6 @@ const Header = () => {
         <Link to='/'>HOME</Link>
         <Link to='/about'>ABOUT US</Link>
         <Link to='/contact'>CONTACT</Link>
-        <Link to='/account'>ACCOUNT </Link>
         <div className="search">
           <div className="searchIcon">
             <SearchIcon />
@@ -88,8 +95,10 @@ const Header = () => {
             }}
           />
         </div>
+        <Link to='/account' className="logout"><ion-icon name="log-out-outline"></ion-icon></Link>
       </Container>
     </Component>
+
   )
 }
 

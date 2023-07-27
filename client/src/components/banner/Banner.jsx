@@ -3,39 +3,41 @@ import owlImage from '../images/owl3.png';
 
 const Image = styled(Box)`
     width: 100%;
-    background-color: #FFD886; /* Set the background color to yellow */
-    height: 70vh;
+    background-color: #FFD886; 
+    height: 60vh;
     display: flex;
-    flex-direction: row; /* Change the flex-direction to row */
+    flex-direction: row; 
     align-items: center;
-    justify-content: space-between; /* Add space between heading and image */
-    padding-left: 20px; /* Add some left padding to move the content to the left */
+    justify-content: space-between; 
+    padding-left: 20px; 
+    text-align: center;
 `;
 
 const Heading = styled(Typography)`
+    margin-left: 6.7rem;
     font-size: 70px;
     color: black;
     line-height: 1;
-    font-family: 'Merriweather', serif;
-    margin-right: 20px; /* Add margin to create space between heading and image */
+    font-family: 'Ubuntu', sans-serif; 
+    margin-right: 20px; 
     padding-right: 0px;
     padding-left: 20px;
 `;
 
 const SubHeading = styled(Typography)`
+    margin-left: 7rem;
     font-size: 20px;
     color: black;
-    font-family: 'Merriweather', serif;
+    font-family: 'Ubuntu', sans-serif; 
     max-width: 680px;
     padding-right: 0px;
     padding-left: 30px;
 `;
 
 const ImageContainer = styled(Box)`
-    width: 30%;
-    height: 100%;
-    margin-right: 50px; /* Adjust the margin to move the image and text closer */
-    margin-left: 50px; /* Add left margin to move the image slightly to the right */
+    width: 60%; 
+    height: 90%;
+    margin-top: 10px; 
 `;
 
 const Banner = () => {
@@ -45,7 +47,7 @@ const Banner = () => {
                 <Heading>THYNK UNLIMITED</Heading>
                 <SubHeading>
                     <br />
-                    <Typography variant="h3" sx={{ fontSize: '30px',fontFamily: 'Merriweather'  }}>
+                    <Typography variant="h3" sx={{ fontSize: '30px', fontFamily: 'Roboto' }}>
                         <b>Create A Blog With Limitless Thinking.</b>
                     </Typography>
                     {/* <br />
@@ -58,7 +60,7 @@ const Banner = () => {
                 <img
                     src={owlImage}
                     alt="Owl Image"
-                    style={{ width: 'calc(350px + 10%)', height: 'calc(300px + 20%)' }}
+                    style={{ width: 'calc(320px + 10%)', height: 'calc(300px + 20%)' }}
                 />
             </ImageContainer>
         </Image>
